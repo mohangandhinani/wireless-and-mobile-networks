@@ -1,0 +1,24 @@
+When do you leave for work
+Where do you work
+How many people live in your house
+Do you have any children
+Where do they study
+When will they be at home
+How often do you want me to report 
+What is the name of your spouse
+What is the number of the of the closest fire department
+Do you have furnitures that can catch fires ?
+How many furniture do you have in your hall 
+Is you apartment fire proof
+Fire Alarm is on
+Fire Alarm is beeping
+Fire Alarm is off
+Fire Alarm may be on
+Child is crying
+Child may be crying
+Oven is on
+Oven may be on
+TV is on after 9pm
+TV is on after 12am
+TV maybe on
+ 
