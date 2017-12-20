@@ -1,23 +1,25 @@
+#########################################################
+# sender.py
+# Reference : https://stackoverflow.com
+#########################################################
+
 import pygame
 import sys
-from comtypes import *
 import comtypes.client
-from ctypes import POINTER
+
+from comtypes import *
+from ctypes   import POINTER
 from ctypes.wintypes import DWORD, BOOL
 
-MMDeviceApiLib = \
-    GUID('{2FDAAFA3-7523-4F66-9957-9D5E7FE698F6}')
-IID_IMMDevice = \
-    GUID('{D666063F-1587-4E43-81F1-B948E807363F}')
-IID_IMMDeviceEnumerator = \
-    GUID('{A95664D2-9614-4F35-A746-DE8DB63617E6}')
 CLSID_MMDeviceEnumerator = \
     GUID('{BCDE0395-E52F-467C-8E3D-C4579291692E}')
-IID_IMMDeviceCollection = \
-    GUID('{0BD7A1BE-7A1A-44DB-8397-CC5392387B5E}')
+
 IID_IAudioEndpointVolume = \
     GUID('{5CDF2C82-841E-4546-9722-0CF74078229A}')
 
+#########################################################
+# Microsoft Windows related Class definitions below
+#########################################################
 class IMMDeviceCollection(IUnknown):
     _iid_ = GUID('{0BD7A1BE-7A1A-44DB-8397-CC5392387B5E}')
     pass
@@ -85,7 +87,6 @@ class IAudioEndpointVolume(IUnknown):
             (['out','retval'], POINTER(c_float), 'pfMax'),
             (['out','retval'], POINTER(c_float), 'pfIncr')
         ),
-
     ]
 
 class IMMDevice(IUnknown):
@@ -127,17 +128,8 @@ enumerator = comtypes.CoCreateInstance(
 
 endpoint = enumerator.GetDefaultAudioEndpoint( 0, 1 )
 volume = endpoint.Activate( IID_IAudioEndpointVolume, comtypes.CLSCTX_INPROC_SERVER, None )
-#print enumerator
-#print endpoint
-#print volume
-#print volume.GetMasterVolumeLevel()
-#print volume.GetVolumeRange()
-#volume.SetMasterVolumeLevel(-65, None) # uncomment for 0 volume
-#volume.SetMasterVolumeLevel(-1, None)  # uncomment for full volume
-#volume.SetMasterVolumeLevel(-25, None) # Change the first argument for controlling the volume remember it should be -ve not less than -65
 
-
-# global constants
+# Global constants
 FREQ        = 44100 # same as audio CD
 BITSIZE     = -16   # unsigned 16 bit
 CHANNELS    = 2     # 1 == mono, 2 == stereo
@@ -145,34 +137,43 @@ BUFFER      = 1024  # audio buffer size in no. of samples
 FRAMERATE   = 60    # how often to check if playback has finished
 
 sounds = {
-    'a': 'wa200.wav',  'b': 'wb240.wav',
-    'c': 'wc280.wav',  'd': 'wd320.wav',
-    'e': 'we360.wav',  'f': 'wf400.wav',
-    'g': 'wg440.wav',  'h': 'wh480.wav',
-    'i': 'wi520.wav',  'j': 'wj560.wav',
-    'k': 'wk600.wav',  'l': 'wl640.wav',
-    'm': 'wm680.wav',  'n': 'wn720.wav',
-    'o': 'wo760.wav',  'p': 'wp800.wav',
-    'q': 'wq840.wav',  'r': 'wr880.wav',
-    's': 'ws920.wav',  't': 'wt960.wav',
-    'u': 'wu1000.wav', 'v': 'wv1040.wav',
-    'w': 'ww1080.wav', 'x': 'wx1120.wav',
-    'y': 'wy1160.wav', 'z': 'wz1200.wav',
+    'a': 'wa200.wav',
+    'b': 'wb240.wav',
+    'c': 'wc280.wav',
+    'd': 'wd320.wav',
+    'e': 'we360.wav',
+    'f': 'wf400.wav',
+    'g': 'wg440.wav',
+    'h': 'wh480.wav',
+    'i': 'wi520.wav',
+    'j': 'wj560.wav',
+    'k': 'wk600.wav',
+    'l': 'wl640.wav',
+    'm': 'wm680.wav',
+    'n': 'wn720.wav',
+    'o': 'wo760.wav',
+    'p': 'wp800.wav',
+    'q': 'wq840.wav',
+    'r': 'wr880.wav',
+    's': 'ws920.wav',
+    't': 'wt960.wav',
+    'u': 'wu1000.wav',
+    'v': 'wv1040.wav',
+    'w': 'ww1080.wav',
+    'x': 'wx1120.wav',
+    'y': 'wy1160.wav',
+    'z': 'wz1200.wav',
     ' ': 'wspace1800.wav'
 }
 
-#pygame.init()
 pygame.mixer.init(FREQ, BITSIZE, CHANNELS, BUFFER)
 
-def main(argv):
-    while True:
-        convert_string = raw_input("\n\nEnter Message : "),
-        for i in convert_string[0]:
-            #print i, sounds[i]
-            playsound(pygame.mixer.Sound('SoundFiles/' + sounds[i]))
-
+#########################################################
+# Function to play the sound file
+#########################################################
 def playsound(soundfile):
-    """Play sound through default mixer channel in blocking manner.
+    """
+    Play sound through default mixer channel in blocking manner.
     This will load the whole sound into memory before playback
     """
     sound = pygame.mixer.Sound(soundfile)
@@ -181,6 +182,15 @@ def playsound(soundfile):
     sound.play()
     while pygame.mixer.get_busy():
         clock.tick(FRAMERATE)
+
+#########################################################
+# main function begins here
+#########################################################
+def main(argv):
+    while True:
+        convert_string = raw_input("\n\nEnter Message : "),
+        for i in convert_string[0]:
+            playsound(pygame.mixer.Sound('SoundFiles/' + sounds[i]))
 
 
 if __name__ == '__main__':
