@@ -1,6 +1,5 @@
 #########################################################
-# sender.py
-# Reference : https://stackoverflow.com
+# Desktop_Data_Transmitter.py
 #########################################################
 
 import pygame
@@ -195,3 +194,9 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv[1:])
+
+#########################################################
+# References
+#########################################################
+#
+# 1) https://stackoverflow.com/questions/25631123/programmatically-changing-system-wide-speaker-balance-on-windows-7/27168541

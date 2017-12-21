@@ -1,6 +1,5 @@
 #########################################################
-# receiver.py
-# Reference : https://stackoverflow.com
+# Desktop_Data_Receiver.py
 #########################################################
 
 import pyaudio
@@ -146,3 +145,9 @@ print("Stopping Recording")
 stream.stop_stream()
 stream.close()
 p.terminate()
+
+#########################################################
+# References
+#########################################################
+#
+# 1) Aubio Demo : https://github.com/aubio/aubio/blob/master/python/demos/demo_pyaudio.py
