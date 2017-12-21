@@ -1,15 +1,15 @@
 import smtplib
 
-def sendemail(sender,receiver,cc_addr_list,sub,message,login, password,smtpserver='smtp.gmail.com:587'):
-    msgHeader  = 'From: %s\n' % sender
-    msgHeader += 'To: %s\n' % ','.join(receiver)
-    msgHeader += 'Cc: %s\n' % ','.join(cc_addr_list)
-    msgHeader += 'sub: %s\n\n' % sub
-    message = msgHeader + message
-    server = smtplib.SMTP(smtpserver)
+def sendemail(sender,receiver,cc,sub,message,login, password,smtp='smtp.gmail.com:587'):
+    msgHeader='From: %s\n' % sender
+    msgHeader+='To: %s\n' % ','.join(receiver)
+    msgHeader+='Cc: %s\n' % ','.join(cc)
+    msgHeader+='sub: %s\n\n' % sub
+    message=msgHeader + message
+    server=smtplib.SMTP(smtp)
     server.starttls()
     server.login(login,password)
-    problems = server.sendmail(sender, receiver, message)
+    problems=server.sendmail(sender, receiver, message)
     server.quit()
     return problems
 
